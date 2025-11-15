@@ -1,10 +1,13 @@
-module mult(X, Y, P);
+module fmamult(Xm, Ym, Pm);
 
-    input logic [9:0] X;
-    input logic [9:0] Y;
-    output logic [19:0] P;
+    input logic [10:0] Xm;
+    input logic [10:0] Ym;
+    output logic [10:0] Pm;
+
+    logic [21:0] product;
 
     // Placeholder for multiplication logic
-    assign P = X * Y; // Simple multiplication for illustration
+    assign product = (Xm * Ym); // Simple multiplication for illustration
+    assign Pm = product[20:10]; // Taking the upper bits as the product mantissa
 
 endmodule
