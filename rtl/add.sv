@@ -1,7 +1,7 @@
 module fmaadd(Am, Pm, Ze, Pe, Ps, KillProd, ASticky, InvA, Sm, Se, Ss);
 
     input logic [47:0] Am;
-    input logic [10:0] Pm;
+    input logic [11:0] Pm;
     input logic [4:0]  Ze;
     input logic [5:0]  Pe;
     input logic        Ps;
@@ -16,10 +16,8 @@ module fmaadd(Am, Pm, Ze, Pe, Ps, KillProd, ASticky, InvA, Sm, Se, Ss);
     logic [47:0] PreSum;
     logic [47:0] NegPreSum;
     logic        NegSum;
-    logic [10:0] PmKilled;
+    logic [11:0] PmKilled;
     logic [47:0] AmInv;
-
-    assign sum = Am + Pm;
 
     always_comb begin
 
@@ -35,9 +33,13 @@ module fmaadd(Am, Pm, Ze, Pe, Ps, KillProd, ASticky, InvA, Sm, Se, Ss);
         Se = ~KillProd ? Pe : Ze;
         Sm = ~NegSum ? PreSum[47:0] : NegPreSum[47:0];
 
-        $display("Ss: %b", Ss);
-        $display("Se: %d", Se - 6'd15);
-        $display("Sm: %b.%b", Sm[34:10], Sm[9:0]);
+      //  $display("PmKilled: %b.%b", PmKilled[11:10], PmKilled[10:0]);
+    //    $display("AmInv: %b", AmInv);
+    //    $display("PreSum: %b", PreSum);
+    //    $display("Ss: %b", Ss);
+      //  $display("Se: %d", Se - 6'd15);
+      //  $display("Se: %b", Se);
+      //  $display("Sm: %b.%b", Sm[34:10], Sm[9:0]);
     end
 
 endmodule

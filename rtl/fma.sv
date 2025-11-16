@@ -92,7 +92,7 @@ module fma16 (x, y, z, mul, add, negr, negz,
             .Pe(Pe)
       );
 
-      logic [10:0] Pm;
+      logic [11:0] Pm;
 
       fmamult mult(
             .Xm(Xm),
@@ -101,8 +101,8 @@ module fma16 (x, y, z, mul, add, negr, negz,
       );
 
       logic [47:0] Am;
-      logic        ASticky1, KillProd1;
-      
+      logic ASticky;
+      logic KillProd;
 
       fmaalign align(
             .Ze(Ze),
@@ -112,12 +112,9 @@ module fma16 (x, y, z, mul, add, negr, negz,
             .ZZero(ZZero),
             .Pe(Pe),
             .Am(Am),
-            .ASticky(ASticky1),
-            .KillProd(KillProd1)
+            .ASticky(ASticky),
+            .KillProd(KillProd)
       );
-
-      assign ASticky = 0; // to be connected
-      assign KillProd = 0; // to be connected
 
       logic PmKilled;
 
@@ -155,20 +152,20 @@ module fma16 (x, y, z, mul, add, negr, negz,
       );
 
       // Debug display
-      always @(negedge clk) begin
-            $display("FMA16 Operation Debug:");
-            $display("Pe %d", Pe - 6'd15);
-            $display("Pm: %b", Pm);
-            $display("Xm: %b, Ym: %b, Zm: %b", Xm, Ym, Zm);
-            #10;
-            $display("Ss: %b", Ss);
-            $display("Se: %d", Se - 6'd15);
-            $display("Sm: %b.%b", Sm[34:10], Sm[9:0]);
-
-            $display("NormCnt: %d", NormCnt);
-            $display("Result: %b", result);
-
-            $display("--------------------------------");
-      end
+     // always @(negedge clk) begin
+     //       $display("FMA16 Operation Debug:");
+     //       $display("Pe %d", Pe - 6'd15);
+     //       $display("Pm: %b", Pm);
+     //       $display("Xm: %b, Ym: %b, Zm: %b", Xm, Ym, Zm);
+     //       #10;
+     //       $display("Ss: %b", Ss);
+     //       $display("Se: %d", Se - 6'd15);
+     //       $display("Sm: %b.%b", Sm[34:10], Sm[9:0]);
+//
+     //       $display("NormCnt: %d", NormCnt);
+     //       $display("Result: %b", result);
+//
+     //       $display("--------------------------------");
+     // end
       
 endmodule
