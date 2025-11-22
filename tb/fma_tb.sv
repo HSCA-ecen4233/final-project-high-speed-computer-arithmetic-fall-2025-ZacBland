@@ -49,7 +49,7 @@ module stimulus;
 
     always @(posedge clk) begin
         skip = 0;
-        #1; {x,y,z,ctrl, expected_result, expected_flags} = testvectors[vectornum];
+        #5; {x,y,z,ctrl, expected_result, expected_flags} = testvectors[vectornum];
         {roundmode, mult, add, negr, negz} = ctrl;
     end
     
@@ -65,6 +65,8 @@ module stimulus;
                 $display("expected = %b", expected_flags);
                 errors = errors + 1;
             end else begin
+                $display("%c[1;32m", 27);
+                $display("Pass: inputs %h * %h + %h", x, y, z);
                 passed = passed + 1;
             end
             total = total + 1;

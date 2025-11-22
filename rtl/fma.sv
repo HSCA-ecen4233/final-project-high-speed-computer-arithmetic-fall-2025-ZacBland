@@ -151,6 +151,13 @@ module fma16 (x, y, z, mul, add, negr, negz,
             .Mf(result)
       );
 
+      always_comb begin
+          flags = {3'b0, ASticky};
+          $display("%b", ASticky);
+      end
+
+      //    assign flags = {3'b0, ASticky};
+
       // Debug display
      // always @(negedge clk) begin
      //       $display("FMA16 Operation Debug:");

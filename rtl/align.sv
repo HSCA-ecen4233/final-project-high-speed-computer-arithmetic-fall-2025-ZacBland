@@ -37,7 +37,7 @@ module fmaalign(
         end
 
         Am = ZmShifted; // Take upper 34 bits for Am
-
+        
        // $display("Pe: %d", Pe - 6'd15);
        // $display("Zm : %b", Zm);
        // $display("Acnt: %d", Acnt);

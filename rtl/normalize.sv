@@ -20,6 +20,9 @@ module fmanorm(Ss, Se, Sm, NormCnt, Mf);
             SmNorm = Sm;
         end
         
+        // get first index of 1 in SmNorm for rounding
+        $display("%b", SmNorm);
+
         Mf = {Ss, SeNorm, SmNorm[9:0]};
     end
 
