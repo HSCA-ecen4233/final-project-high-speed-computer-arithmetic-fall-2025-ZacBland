@@ -37,7 +37,7 @@ module stimulus;
         .clk(clk)
     );
 
-    string testvector_file = "tb/tests/fma_1.tv";
+    string testvector_file = "tb/tests/fma_2.tv";
     initial begin
         vectornum = 0; errors = 0;
         $readmemh(testvector_file, testvectors);
@@ -54,9 +54,11 @@ module stimulus;
     end
     
     always @(negedge clk) begin
+        #5;
         if (~skip) begin
             if (result !== expected_result) begin
                 $display("%c[1;31m", 27);
+                $display("Fail on vector %0d:", vectornum);
                 $display("Inputs %h * %h + %h", x, y, z);
                 $display("Operation: mult=%b add=%b negr=%b negz=%b roundmode=%b", mult, add, negr, negz, roundmode);
                 $display("result   = %b_%b_%b", result[15], result[14:10], result[9:0]);
@@ -67,7 +69,7 @@ module stimulus;
                 $display("%c[0m", 27);
                 errors = errors + 1;
             end else begin
-                $display("%c[1;32m", 27);
+                //$display("%c[1;32m", 27);
                 //$display("Pass: inputs %h * %h + %h", x, y, z);
                 passed = passed + 1;
             end

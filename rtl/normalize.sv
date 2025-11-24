@@ -1,17 +1,17 @@
 module fmashiftcalc(Se, Sm, SCnt, NormSumE, SZero, PreResultSubnorm, PreShiftAmt);
 
     input logic [5:0] Se;
-    input logic [34:0] Sm;
-    input logic [4:0] SCnt;
+    input logic [35:0] Sm;
+    input logic [5:0] SCnt;
 
     output logic signed [5:0] NormSumE;
     output logic SZero;
     output logic PreResultSubnorm;
     output logic [5:0] PreShiftAmt;
 
-    logic [4:0] int_SCnt;
+    logic [5:0] int_SCnt;
     logic [5:0] int_Se;
-    logic [34:0] int_Sm;
+    logic [35:0] int_Sm;
 
     logic [6:0] inv_SCnt;
     logic [7:0] ext_inv_SCnt;
@@ -20,7 +20,6 @@ module fmashiftcalc(Se, Sm, SCnt, NormSumE, SZero, PreResultSubnorm, PreShiftAmt
 
 
     always_comb begin
-
         int_Se = Se & (1 << 7) - 1; // Mask to 7 bits
         int_Sm = Sm & ((1 << 36) - 1);
         int_SCnt = SCnt & ((1 << 6) - 1); // Mask to 6 bits
@@ -40,7 +39,7 @@ module fmashiftcalc(Se, Sm, SCnt, NormSumE, SZero, PreResultSubnorm, PreShiftAmt
             PreShiftAmt = int_SCnt & (1 << 6) - 1;
         end
 
-        //$display("fmashiftcalc NormSumExp: %d SZero: %b PreResultSubnorm: %b PreShiftAmt: %d", NormSumE, SZero, PreResultSubnorm, PreShiftAmt);
+        $display("fmashiftcalc NormSumExp: %d SZero: %b PreResultSubnorm: %b PreShiftAmt: %d", NormSumE, SZero, PreResultSubnorm, PreShiftAmt);
     end
 
 
@@ -49,12 +48,12 @@ endmodule
 module fmanorm(Se, Sm, Ss, result);
 
     input logic [5:0]  Se;
-    input logic [34:0] Sm;
+    input logic [35:0] Sm;
     input logic       Ss;
     output logic [15:0] result;
 
-    logic [4:0] SCnt;
-    logic [34:0] PreNormCnt;
+    logic [5:0] SCnt;
+    logic [35:0] PreNormCnt;
 
     assign PreNormCnt = Sm & ((1 << 36) - 1);
     fmalzc lzc (

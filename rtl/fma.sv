@@ -100,7 +100,7 @@ module fma16 (x, y, z, mul, add, negr, negz,
             .Pm(Pm)
       );
 
-      logic [34:0] Am;
+      logic [35:0] Am;
       logic ASticky;
       logic KillProd;
 
@@ -121,7 +121,7 @@ module fma16 (x, y, z, mul, add, negr, negz,
 
       logic Ss;
       logic [5:0] Se;
-      logic [34:0] Sm;
+      logic [35:0] Sm;
 
       fmaadd sadd(
             .Am(Am),
