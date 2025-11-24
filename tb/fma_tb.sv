@@ -4,7 +4,7 @@ module stimulus;
     logic clk;
     initial begin
         clk = 0;
-        forever #10 clk = ~clk;
+        forever #50 clk = ~clk;
     end
 
     logic [15:0] x, y, z;
@@ -49,7 +49,7 @@ module stimulus;
 
     always @(posedge clk) begin
         skip = 0;
-        #5; {x,y,z,ctrl, expected_result, expected_flags} = testvectors[vectornum];
+        {x,y,z,ctrl, expected_result, expected_flags} = testvectors[vectornum];
         {roundmode, mult, add, negr, negz} = ctrl;
     end
     
@@ -57,16 +57,18 @@ module stimulus;
         if (~skip) begin
             if (result !== expected_result) begin
                 $display("%c[1;31m", 27);
-                $display("Error: inputs %h * %h + %h", x, y, z);
+                $display("Inputs %h * %h + %h", x, y, z);
                 $display("Operation: mult=%b add=%b negr=%b negz=%b roundmode=%b", mult, add, negr, negz, roundmode);
                 $display("result   = %b_%b_%b", result[15], result[14:10], result[9:0]);
                 $display("expected = %b_%b_%b", expected_result[15], expected_result[14:10], expected_result[9:0]);
                 $display("flags    = %b", flags);
                 $display("expected = %b", expected_flags);
+                $display("Result Packed  = 0x%h", result);
+                $display("%c[0m", 27);
                 errors = errors + 1;
             end else begin
                 $display("%c[1;32m", 27);
-                $display("Pass: inputs %h * %h + %h", x, y, z);
+                //$display("Pass: inputs %h * %h + %h", x, y, z);
                 passed = passed + 1;
             end
             total = total + 1;

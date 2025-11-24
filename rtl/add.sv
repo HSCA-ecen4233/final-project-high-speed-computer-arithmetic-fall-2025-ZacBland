@@ -1,7 +1,7 @@
 module fmaadd(Am, Pm, Ze, Pe, Ps, KillProd, ASticky, InvA, Sm, Se, Ss);
 
-    input logic [47:0] Am;
-    input logic [11:0] Pm;
+    input logic [34:0] Am;
+    input logic [21:0] Pm;
     input logic [4:0]  Ze;
     input logic [5:0]  Pe;
     input logic        Ps;
@@ -13,33 +13,33 @@ module fmaadd(Am, Pm, Ze, Pe, Ps, KillProd, ASticky, InvA, Sm, Se, Ss);
     output logic        Ss;
 
     logic [3:0] Mcnt;
-    logic [47:0] PreSum;
-    logic [47:0] NegPreSum;
+    logic [34:0] PreSum;
+    logic [34:0] NegPreSum;
     logic        NegSum;
-    logic [11:0] PmKilled;
-    logic [47:0] AmInv;
+    logic [21:0] PmKilled;
+    logic [23:0] PmExt;
+    logic [37:0] AmExt;
+    logic [34:0] AmInv;
+    logic        carry_in;
 
     always_comb begin
+      AmInv = (InvA) ? ~Am & ((1 << 36) - 1) : Am;
 
-        AmInv = ~InvA ? Am : ~Am;
-        PmKilled = Pm & ~KillProd;
+      PmKilled = KillProd ? 22'b0 : Pm;
+      PmExt = {PmKilled, 2'b0}; // Align Pm to match Am's LSB
+      AmExt = (InvA << 36) | (AmInv & ((1 << 36) - 1)); // Extend Am to match Pm's MSB
 
-        PreSum = PmKilled + AmInv + ((~ASticky | ~KillProd) & InvA);
-        NegPreSum = Am | ~PmKilled | (~ASticky | ~KillProd);
+      carry_in = (~ASticky | KillProd) & InvA;
 
-        NegSum = PreSum[47];
+      PreSum = PmExt + AmExt + carry_in;
+      NegSum = (PreSum >> 36) & 'b1;
+      PreSum = PreSum & ((1 << 36) - 1);
 
-        Ss = Ps ^ NegSum;
-        Se = ~KillProd ? Pe : Ze;
-        Sm = ~NegSum ? PreSum[47:0] : NegPreSum[47:0];
+      Sm = PreSum;
+      Ss = 0;
+      Se = KillProd ? Ze : Pe;
 
-      //  $display("PmKilled: %b.%b", PmKilled[11:10], PmKilled[10:0]);
-    //    $display("AmInv: %b", AmInv);
-    //    $display("PreSum: %b", PreSum);
-    //    $display("Ss: %b", Ss);
-      //  $display("Se: %d", Se - 6'd15);
-      //  $display("Se: %b", Se);
-      //  $display("Sm: %b.%b", Sm[34:10], Sm[9:0]);
+      //$display("Add: Sm=0x%h Se=0x%h Ss=%b", Sm, Se, Ss);
     end
 
 endmodule

@@ -92,7 +92,7 @@ module fma16 (x, y, z, mul, add, negr, negz,
             .Pe(Pe)
       );
 
-      logic [11:0] Pm;
+      logic [21:0] Pm;
 
       fmamult mult(
             .Xm(Xm),
@@ -100,17 +100,18 @@ module fma16 (x, y, z, mul, add, negr, negz,
             .Pm(Pm)
       );
 
-      logic [47:0] Am;
+      logic [34:0] Am;
       logic ASticky;
       logic KillProd;
 
       fmaalign align(
+            .Xe(Xe),
+            .Ye(Ye),
             .Ze(Ze),
             .Zm(Zm),
             .XZero(XZero),
             .YZero(YZero),
             .ZZero(ZZero),
-            .Pe(Pe),
             .Am(Am),
             .ASticky(ASticky),
             .KillProd(KillProd)
@@ -136,43 +137,16 @@ module fma16 (x, y, z, mul, add, negr, negz,
             .Ss(Ss)
       );
 
-      logic signed [4:0] NormCnt;
-
-      fmalzc lzc (
-            .Sm(Sm),
-            .NormCnt(NormCnt)
-      );
-
       fmanorm normalize(
             .Ss(Ss),
             .Se(Se),
             .Sm(Sm),
-            .NormCnt(NormCnt),
-            .Mf(result)
+            .result(result)
       );
 
       always_comb begin
-          flags = {3'b0, ASticky};
-          $display("%b", ASticky);
+          flags = {0,0,0,0};
+          //$display("\n");
       end
-
-      //    assign flags = {3'b0, ASticky};
-
-      // Debug display
-     // always @(negedge clk) begin
-     //       $display("FMA16 Operation Debug:");
-     //       $display("Pe %d", Pe - 6'd15);
-     //       $display("Pm: %b", Pm);
-     //       $display("Xm: %b, Ym: %b, Zm: %b", Xm, Ym, Zm);
-     //       #10;
-     //       $display("Ss: %b", Ss);
-     //       $display("Se: %d", Se - 6'd15);
-     //       $display("Sm: %b.%b", Sm[34:10], Sm[9:0]);
-//
-     //       $display("NormCnt: %d", NormCnt);
-     //       $display("Result: %b", result);
-//
-     //       $display("--------------------------------");
-     // end
       
 endmodule
