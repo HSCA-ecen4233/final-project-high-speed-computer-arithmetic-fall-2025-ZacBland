@@ -30,6 +30,10 @@ module fma16 (x, y, z, mul, add, negr, negz,
 
       logic              XZero, YZero, ZZero;
 
+      logic XNaN, XInf, XSNaN, XExpMax;
+      logic YNaN, YInf, YSNaN, YExpMax;
+      logic ZNaN, ZInf, ZSNaN, ZExpMax;
+
       // stubbed ideas for instantiation ideas
 
       unpack unpackX(
@@ -37,11 +41,11 @@ module fma16 (x, y, z, mul, add, negr, negz,
             .SgnX(Xs),
             .ExpX(Xe),
             .ManX(Xm),
-            .XNaN(),
-            .XSNaN(),
+            .XNaN(XNaN),
+            .XSNaN(XSNaN),
             .XZero(XZero),
-            .XInf(),
-            .XExpMax(),
+            .XInf(XInf),
+            .XExpMax(XExpMax),
             .XSubnorm()
       );
 
@@ -50,11 +54,11 @@ module fma16 (x, y, z, mul, add, negr, negz,
             .SgnX(Ys),
             .ExpX(Ye),
             .ManX(Ym),
-            .XNaN(),
-            .XSNaN(),
+            .XNaN(YNaN),
+            .XSNaN(YSNaN),
             .XZero(YZero),
-            .XInf(),
-            .XExpMax(),
+            .XInf(YInf),
+            .XExpMax(YExpMax),
             .XSubnorm()
       );
 
@@ -63,15 +67,15 @@ module fma16 (x, y, z, mul, add, negr, negz,
             .SgnX(Zs),
             .ExpX(Ze),
             .ManX(Zm),
-            .XNaN(),
-            .XSNaN(),
+            .XNaN(ZNaN),
+            .XSNaN(ZSNaN),
             .XZero(ZZero),
-            .XInf(),
-            .XExpMax(),
+            .XInf(ZInf),
+            .XExpMax(ZExpMax),
             .XSubnorm()
       );
 
-      logic [5:0] Pe;
+      logic [6:0] Pe;
       logic Ps, As, InvA;
 
       fmasign sign(
@@ -92,7 +96,7 @@ module fma16 (x, y, z, mul, add, negr, negz,
             .Pe(Pe)
       );
 
-      logic [21:0] Pm;
+      logic [22:0] Pm;
 
       fmamult mult(
             .Xm(Xm),
@@ -122,9 +126,9 @@ module fma16 (x, y, z, mul, add, negr, negz,
       logic Ss;
       logic [5:0] Se;
       logic [35:0] Sm;
-
       fmaadd sadd(
             .Am(Am),
+            .As(As),
             .Pm(Pm),
             .Ze(Ze),
             .Pe(Pe),
@@ -136,17 +140,56 @@ module fma16 (x, y, z, mul, add, negr, negz,
             .Se(Se),
             .Ss(Ss)
       );
-
+      
+      logic [15:0] result_normalized;
+      logic inexact;
+      logic overflow;
       fmanorm normalize(
             .Ss(Ss),
             .Se(Se),
             .Sm(Sm),
-            .result(result)
+            .roundmode(roundmode),
+            .result(result_normalized),
+            .inexact(inexact),
+            .overflow(overflow)
       );
 
       always_comb begin
-          flags = {0,0,0,0};
-          //$display("\n");
+            flags = 4'b0;
+            
+            if ((XInf & YZero) | (YInf & XZero)) begin
+                  result = 16'h7e00;
+                  flags[3] = 1; // Invalid operation
+            end else if (XNaN | YNaN | ZNaN) begin
+                  result = 16'h7e00; // Quiet NaN
+                  if ((XSNaN | YSNaN | ZSNaN)) begin
+                        flags[3] = 1; // Invalid operation
+                  end
+            end else if (XInf | YInf | ZInf) begin 
+                  if ((XInf | YInf) & ZInf & Ps != Zs) begin
+                        result = 16'h7e00; // Quiet NaN
+                        flags[3] = 1; // Invalid operation
+                  end else if (XInf | YInf & ~ZInf) begin
+                        result = {Ps, 15'h7c00};
+                  end else begin
+                        result = {Zs, 15'h7c00};
+                  end
+            end else begin
+                  result = result_normalized;
+                  flags[0] = ASticky|inexact; // Inexact flag
+                  if (Se[5] | (&result[14:10]) | overflow) begin
+                        flags[2] = 1; //Overflow
+                        flags[0] = 1; // Inexact
+                        if (roundmode == 2'b01) begin
+                              result = {Ps, 5'b11111, 10'b0000000000}; // Inf
+                        end else begin
+                              result = {Ps, 5'b11110, 10'b1111111111}; // Max normal
+                        end
+                  end else if (~|result[14:0]) begin
+                        result = {As & Ps, result[14:0]}; // Force to even
+                  end
+            end
+            
       end
       
 endmodule

@@ -6,19 +6,21 @@ module fmaexpadd(
     input logic [4:0] Ye;
     input logic       XZero;
     input logic       YZero;
-    output logic [5:0] Pe;
+    output logic [6:0] Pe;
 
-    logic [5:0] exp_sum;
-    logic [5:0] exp_adjusted;
+    logic [6:0] exp_sum;
+    logic [6:0] exp_adjusted;
     
     always_comb begin
         exp_sum = Xe + Ye;
-        exp_adjusted = exp_sum - 6'd15;
+        exp_adjusted = exp_sum - 7'd15;
         if (XZero || YZero) begin
-            Pe = 6'd0;
+            Pe = 7'd0;
         end else begin
             Pe = exp_adjusted;
         end
+
+        //$display("ExpAdd: Pe=%b", Pe);
     end
 
 endmodule

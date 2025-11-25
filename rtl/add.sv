@@ -1,9 +1,10 @@
-module fmaadd(Am, Pm, Ze, Pe, Ps, KillProd, ASticky, InvA, Sm, Se, Ss);
+module fmaadd(Am, As, Pm, Ze, Pe, Ps, KillProd, ASticky, InvA, Sm, Se, Ss);
 
     input logic [35:0] Am;
-    input logic [21:0] Pm;
+    input logic        As;
+    input logic [22:0] Pm;
     input logic [4:0]  Ze;
-    input logic [5:0]  Pe;
+    input logic [6:0]  Pe;
     input logic        Ps;
     input logic        KillProd;
     input logic        ASticky;
@@ -13,18 +14,18 @@ module fmaadd(Am, Pm, Ze, Pe, Ps, KillProd, ASticky, InvA, Sm, Se, Ss);
     output logic        Ss;
 
     logic [3:0] Mcnt;
-    logic [36:0] PreSum;
+    logic signed [36:0] PreSum;
     logic [36:0] NegPreSum;
     logic        NegSum;
-    logic [21:0] PmKilled;
-    logic [21:0] PmKilled_inv;
-    logic [23:0] PmExt;
+    logic [22:0] PmKilled;
+    logic [22:0] PmKilled_inv;
+    logic [35:0] PmExt;
     logic [37:0] AmExt;
     logic [35:0] AmInv;
-    logic        carry_in;
 
     logic [36:0] term1;
     logic [2:0] term2;
+    logic       carry_in;
 
     always_comb begin
       AmInv = (InvA) ? ~Am & ((1 << 36) - 1) : Am;
@@ -48,7 +49,7 @@ module fmaadd(Am, Pm, Ze, Pe, Ps, KillProd, ASticky, InvA, Sm, Se, Ss);
       Sm = (NegSum) ? NegPreSum : PreSum;
       Ss = NegSum ^ Ps;
       Se = KillProd ? Ze : Pe;
-      $display("Add: Sm=0x%h Se=0x%h Ss=%b", Sm, Se, Ss);
+      //$display("Add: Sm=0x%h Se=0x%b Ss=%b", Sm, Se, Ss);
     end
 
 endmodule

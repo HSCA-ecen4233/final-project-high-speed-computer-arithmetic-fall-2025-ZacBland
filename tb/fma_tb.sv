@@ -20,7 +20,7 @@ module stimulus;
     integer passed=0;
     integer total=0;
 
-    logic [75:0] testvectors[10000:0];
+    logic [75:0] testvectors[100000:0];
     logic [31:0] vectornum, errors;
 
     fma16 dut (
@@ -37,7 +37,7 @@ module stimulus;
         .clk(clk)
     );
 
-    string testvector_file = "tb/tests/fma_2.tv";
+    string testvector_file = "tb/tests/my_tests_rne.tv";
     initial begin
         vectornum = 0; errors = 0;
         $readmemh(testvector_file, testvectors);
@@ -54,9 +54,8 @@ module stimulus;
     end
     
     always @(negedge clk) begin
-        #5;
         if (~skip) begin
-            if (result !== expected_result) begin
+            if (result !== expected_result | flags !== expected_flags) begin
                 $display("%c[1;31m", 27);
                 $display("Fail on vector %0d:", vectornum);
                 $display("Inputs %h * %h + %h", x, y, z);
@@ -69,8 +68,6 @@ module stimulus;
                 $display("%c[0m", 27);
                 errors = errors + 1;
             end else begin
-                //$display("%c[1;32m", 27);
-                //$display("Pass: inputs %h * %h + %h", x, y, z);
                 passed = passed + 1;
             end
             total = total + 1;

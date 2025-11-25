@@ -10,7 +10,7 @@ module fmamult(Xm, Ym, Pm);
         product = Xm * Ym; // Simple multiplication for illustration
         Pm = product[21:0]; // Taking the upper bits as the product mantissa
 
-        $display("Mult: Pm=%h", Pm);
+        //$display("Mult: Pm=%h", Pm);
     end
 
 endmodule

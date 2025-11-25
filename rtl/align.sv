@@ -37,7 +37,7 @@ module fmaalign(
 
         Am = (ZmShifted >> 10) & ((1 << 36) - 1);
 
-        $display("Align: Am=%h ASticky=%b KillProd=%b", Am, ASticky, KillProd);
+        //$display("Align: Am=%h ASticky=%b KillProd=%b", Am, ASticky, KillProd);
 
     end
     

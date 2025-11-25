@@ -24,8 +24,12 @@ module unpack(X, SgnX, ExpX, ManX, XNaN, XSNaN, XZero, XInf, XExpMax, XSubnorm);
     assign XFracZero = ~|XFrac;
     assign XNaN = XExpMax & ~XFracZero;
     assign XInf = XExpMax & XFracZero;
-    assign XSNaN = XNaN & XFrac[9];
+    assign XSNaN = XNaN & ~(X[9]);
     assign XZero = ~ExpNonZero & XFracZero;
     assign XSubnorm = ~ExpNonZero & ~XFracZero;
+
+    //always_comb begin
+    //    $display("Unpack: XNaN=%b", XNaN);
+    //end
 
 endmodule

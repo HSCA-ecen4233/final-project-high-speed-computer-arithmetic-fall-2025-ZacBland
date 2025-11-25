@@ -15,7 +15,7 @@ module fmasign(OpCtrl, Xs, Ys, Zs, Ps, As, InvA);
         assign As = Zs ^ ~add;
         assign InvA = Ps ^ As;
 
-        $display("Sign: Ps=%b As=%b InvA=%b", Ps, As, InvA);
+        //$display("Sign: Ps=%b As=%b InvA=%b", Ps, As, InvA);
     end
 
 endmodule
