@@ -39,17 +39,18 @@ module fmashiftcalc(Se, Sm, SCnt, NormSumE, SZero, PreResultSubnorm, PreShiftAmt
             PreShiftAmt = int_SCnt & (1 << 6) - 1;
         end
 
-        $display("fmashiftcalc NormSumExp: %d SZero: %b PreResultSubnorm: %b PreShiftAmt: %d", NormSumE, SZero, PreResultSubnorm, PreShiftAmt);
+        //$display("fmashiftcalc NormSumExp: %d SZero: %b PreResultSubnorm: %b PreShiftAmt: %d", NormSumE, SZero, PreResultSubnorm, PreShiftAmt);
     end
 
 
 endmodule
 
-module fmanorm(Se, Sm, Ss, roundmode, result, inexact, overflow);
+module fmanorm(Se, Sm, Ss, ASticky, roundmode, result, inexact, overflow);
 
     input logic [5:0]  Se;
     input logic [35:0] Sm;
     input logic       Ss;
+    input logic       ASticky;
     input logic [1:0] roundmode;
     output logic [15:0] result;
     output logic       inexact;
@@ -85,7 +86,7 @@ module fmanorm(Se, Sm, Ss, roundmode, result, inexact, overflow);
     logic [35:0] shiftedSm;
 
     logic [10:0] frac;
-    logic [9:0] mant;
+    logic [10:0] mant;
     logic guard;
     logic roundb;
     logic sticky;
@@ -95,10 +96,29 @@ module fmanorm(Se, Sm, Ss, roundmode, result, inexact, overflow);
 
     logic [4:0] e5;
     logic [4:0] temp_e;
+    logic [1:0] internal_roundmode;
 
     assign shift = PreShiftAmt & 'h3F;
 
     always_comb begin // Round to nearest even 
+
+        if (roundmode == 2'b10) begin // Round toward negative infinity
+            if (Ss == 1'b0) begin
+                internal_roundmode = 2'b00; 
+            end else begin
+                internal_roundmode = 2'b01; 
+            end
+        end else if (roundmode == 2'b11) begin // Round toward positive infinity
+            if (Ss == 1'b0) begin
+                internal_roundmode = 2'b01;
+            end else begin
+                internal_roundmode = 2'b00; 
+            end
+        end else begin
+            internal_roundmode = roundmode;
+        end
+
+
         shiftedSm = (shift < 64) ? ((Sm << shift) & ((1 << 36) - 1)) : 35'd0;
         e = NormSumE & 'h7F;
 
@@ -108,27 +128,25 @@ module fmanorm(Se, Sm, Ss, roundmode, result, inexact, overflow);
         roundb = (shiftedSm >> 23) & 1'b1;
         sticky = |(shiftedSm & ((1 << 23) - 1));
 
+        inexact = guard | roundb | sticky | ASticky;
+
         tie = guard & ~roundb & ~sticky;
-        incr = (guard & (roundb | sticky)) | (tie & mant[0]);
+        incr = (guard & (roundb | sticky)) | (tie & mant[0]) | (roundmode == 2'b11 & inexact);
+
         if (incr) begin
-            mant = mant + 1;
+            mant = mant + 'd1;
             if (mant == (1 << 10)) begin
                 mant = 0;
                 e = (e+1) & 'h7F;
             end
         end
-
-        $display("fmanorm: Sm=0x%h shift=%d shiftedSm=0x%h e=%d mant=0x%h GRS=%b%b%b incr=%b", Sm, shift, shiftedSm, e, mant, guard, roundb, sticky, incr);
-        
-        inexact = guard | roundb | sticky;
-        overflow = (NormSumE > 31);
+        overflow = (e > 31);
 
         if (|Sm == 0) begin
             result = {Ss, 15'd0};
         end else begin
 
-        if (roundmode == 2'b01) begin
-            $display("e:%h", e);
+        if (internal_roundmode == 2'b01) begin
             if (PreResultSubnorm) begin
                 e5 = 0;
             end else begin
@@ -136,14 +154,12 @@ module fmanorm(Se, Sm, Ss, roundmode, result, inexact, overflow);
                 e5 = (temp_e < 31) ? temp_e : 31;
                 e5 = (e5 > 0) ? e5 : 0;
             end
-            $display("e5=%h PreResultSubnorm=%b", e5, PreResultSubnorm);
-
             if (e5 == 'h1F & ~PreResultSubnorm) begin
                 result = {Ss, ('h1F << 10)};
             end else begin
                 result = {Ss, e5[4:0], mant[9:0]};
             end
-        end else if (roundmode == 2'b00) begin
+        end else if (internal_roundmode == 2'b00) begin
             shiftedSm = (shift < 64) ? ((Sm << shift) & ((1 << 36) - 1)) : 35'd0;
             e = NormSumE & 'h7F;
             frac = (shiftedSm >> 25) & 'h3FF;
@@ -151,7 +167,7 @@ module fmanorm(Se, Sm, Ss, roundmode, result, inexact, overflow);
 
             result = {Ss, e[4:0], mant[9:0]};
         end else begin
-            $display("UNSUPPORTED ROUNDING MODE = %b", roundmode);
+            $display("UNSUPPORTED ROUNDING MODE = %b", internal_roundmode);
             result = 16'h0000; // Unsupported rounding mode
         end
         end

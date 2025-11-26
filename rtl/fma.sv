@@ -148,6 +148,7 @@ module fma16 (x, y, z, mul, add, negr, negz,
             .Ss(Ss),
             .Se(Se),
             .Sm(Sm),
+            .ASticky(ASticky),
             .roundmode(roundmode),
             .result(result_normalized),
             .inexact(inexact),
@@ -156,7 +157,6 @@ module fma16 (x, y, z, mul, add, negr, negz,
 
       always_comb begin
             flags = 4'b0;
-            
             if ((XInf & YZero) | (YInf & XZero)) begin
                   result = 16'h7e00;
                   flags[3] = 1; // Invalid operation
@@ -176,12 +176,24 @@ module fma16 (x, y, z, mul, add, negr, negz,
                   end
             end else begin
                   result = result_normalized;
-                  flags[0] = ASticky|inexact; // Inexact flag
+                  flags[0] = inexact; // Inexact flag
                   if (Se[5] | (&result[14:10]) | overflow) begin
                         flags[2] = 1; //Overflow
                         flags[0] = 1; // Inexact
                         if (roundmode == 2'b01) begin
                               result = {Ps, 5'b11111, 10'b0000000000}; // Inf
+                        end else if (roundmode == 2'b11) begin
+                              if (Ps == 1'b1) begin
+                                    result = {Ps, 5'b11110, 10'b1111111111}; // Max normal
+                              end else begin
+                                    result = {Ps, 5'b11111, 10'b0000000000}; // Inf
+                              end
+                        end else if (roundmode == 2'b10) begin
+                              if (Ps == 1'b0) begin
+                                    result = {Ps, 5'b11110, 10'b1111111111}; // Max normal
+                              end else begin
+                                    result = {Ps, 5'b11111, 10'b0000000000}; // -Inf
+                              end
                         end else begin
                               result = {Ps, 5'b11110, 10'b1111111111}; // Max normal
                         end
