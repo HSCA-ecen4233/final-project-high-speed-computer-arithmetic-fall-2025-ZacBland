@@ -37,7 +37,7 @@ module stimulus;
         .clk(clk)
     );
 
-    string testvector_file = "tb/tests/fma_special_rm.tv";
+    string testvector_file = "tb/tests/my_tests_rm.tv";
     initial begin
         vectornum = 0; errors = 0;
         $readmemh(testvector_file, testvectors);
@@ -54,6 +54,7 @@ module stimulus;
     end
     
     always @(negedge clk) begin
+        #2;
         if (~skip) begin
             if (result !== expected_result | flags !== expected_flags) begin
                 $display("%c[1;31m", 27);

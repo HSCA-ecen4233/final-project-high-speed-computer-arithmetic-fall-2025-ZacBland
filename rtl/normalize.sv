@@ -132,7 +132,7 @@ module fmanorm(Se, Sm, Ss, ASticky, roundmode, result, inexact, overflow);
 
         tie = guard & ~roundb & ~sticky;
         incr = (guard & (roundb | sticky)) | (tie & mant[0]) | (roundmode == 2'b11 & inexact);
-
+        
         if (incr) begin
             mant = mant + 'd1;
             if (mant == (1 << 10)) begin
