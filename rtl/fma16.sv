@@ -155,7 +155,7 @@ module fma16 (x, y, z, mul, add, negr, negz,
             .overflow(overflow)
       );
 
-      always_comb begin
+      always @(posedge clk) begin
             flags = {4{1'b0}}; // Clear all flags initially
             if ((XInf & YZero) | (YInf & XZero)) begin
                   result = 16'h7e00;

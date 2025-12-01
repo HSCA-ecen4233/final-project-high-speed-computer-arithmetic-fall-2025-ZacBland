@@ -4,17 +4,13 @@ module tb;
 
    // Declare variables for stimulating input
    logic [15:0]  x, y, z;   
-   logic 	       mul, add, negr, negz;
-   logic [1:0]   roundmode;
+   logic [15:0]	 result;
    
-   logic [15:0] result;
-   
-   logic reset, clk;
+   logic	 reset, clk;
    
    // Instantiate the design block counter
-  fma16 dut (x, y, z, mul, add, negr, negz,
-	     roundmode, result);
-
+   fma16 dut (x, y, z, result);
+   
    // Setup the clock to toggle every 1 time units 
    initial 
      begin	

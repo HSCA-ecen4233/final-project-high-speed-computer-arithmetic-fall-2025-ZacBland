@@ -27,7 +27,7 @@ if [file exists work] {
 vlib work
 
 # compile source files
-vlog fma16.sv create_vcd.sv
+vlog /opt/sky90/tech_files/scc9gena.v fma16.vh create_vcd.sv
 
 # start and run simulation
 vsim -voptargs=+acc work.tb
