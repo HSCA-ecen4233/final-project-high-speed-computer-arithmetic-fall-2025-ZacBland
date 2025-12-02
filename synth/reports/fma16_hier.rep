@@ -1,0 +1,63 @@
+ 
+****************************************
+Report : hierarchy
+Design : fma16
+Version: W-2024.09-SP4-1
+Date   : Mon Dec  1 18:03:47 2025
+****************************************
+
+Attributes:
+    r - licensed design
+
+fma16              r
+    scc9gena_a2bb2o_m          scc9gena_tt_1.2v_25C
+    scc9gena_a2bb2oi_m         scc9gena_tt_1.2v_25C
+    scc9gena_a21boi_m          scc9gena_tt_1.2v_25C
+    scc9gena_a21o_m            scc9gena_tt_1.2v_25C
+    scc9gena_a21oi_m           scc9gena_tt_1.2v_25C
+    scc9gena_a22o_m            scc9gena_tt_1.2v_25C
+    scc9gena_a22oi_m           scc9gena_tt_1.2v_25C
+    scc9gena_a31o_m            scc9gena_tt_1.2v_25C
+    scc9gena_a31oi_m           scc9gena_tt_1.2v_25C
+    scc9gena_a32oi_m           scc9gena_tt_1.2v_25C
+    scc9gena_a211o_m           scc9gena_tt_1.2v_25C
+    scc9gena_a211oi_m          scc9gena_tt_1.2v_25C
+    scc9gena_a221oi_m          scc9gena_tt_1.2v_25C
+    scc9gena_and2_m            scc9gena_tt_1.2v_25C
+    scc9gena_and4_m            scc9gena_tt_1.2v_25C
+    scc9gena_conb_1            scc9gena_tt_1.2v_25C
+    scc9gena_dfxtp_m           scc9gena_tt_1.2v_25C
+    scc9gena_dlrtp_1           scc9gena_tt_1.2v_25C
+    scc9gena_fa_m              scc9gena_tt_1.2v_25C
+    scc9gena_inv_m             scc9gena_tt_1.2v_25C
+    scc9gena_maj3_m            scc9gena_tt_1.2v_25C
+    scc9gena_mux2i_m           scc9gena_tt_1.2v_25C
+    scc9gena_mux4_m            scc9gena_tt_1.2v_25C
+    scc9gena_nand2_m           scc9gena_tt_1.2v_25C
+    scc9gena_nand2b_m          scc9gena_tt_1.2v_25C
+    scc9gena_nand3_m           scc9gena_tt_1.2v_25C
+    scc9gena_nand4_m           scc9gena_tt_1.2v_25C
+    scc9gena_nand4b_0          scc9gena_tt_1.2v_25C
+    scc9gena_nor2_m            scc9gena_tt_1.2v_25C
+    scc9gena_nor2b_m           scc9gena_tt_1.2v_25C
+    scc9gena_nor3_m            scc9gena_tt_1.2v_25C
+    scc9gena_nor3b_0           scc9gena_tt_1.2v_25C
+    scc9gena_nor4_m            scc9gena_tt_1.2v_25C
+    scc9gena_nor4b_0           scc9gena_tt_1.2v_25C
+    scc9gena_nor4bb_m          scc9gena_tt_1.2v_25C
+    scc9gena_o21ai_m           scc9gena_tt_1.2v_25C
+    scc9gena_o21ba_m           scc9gena_tt_1.2v_25C
+    scc9gena_o21bai_m          scc9gena_tt_1.2v_25C
+    scc9gena_o22a_m            scc9gena_tt_1.2v_25C
+    scc9gena_o22ai_m           scc9gena_tt_1.2v_25C
+    scc9gena_o31ai_m           scc9gena_tt_1.2v_25C
+    scc9gena_o32ai_m           scc9gena_tt_1.2v_25C
+    scc9gena_o211a_m           scc9gena_tt_1.2v_25C
+    scc9gena_o211ai_m          scc9gena_tt_1.2v_25C
+    scc9gena_o221a_m           scc9gena_tt_1.2v_25C
+    scc9gena_o221ai_m          scc9gena_tt_1.2v_25C
+    scc9gena_or2_m             scc9gena_tt_1.2v_25C
+    scc9gena_or3b_m            scc9gena_tt_1.2v_25C
+    scc9gena_xnorlp2_m         scc9gena_tt_1.2v_25C
+    scc9gena_xorlp2_m          scc9gena_tt_1.2v_25C
+1

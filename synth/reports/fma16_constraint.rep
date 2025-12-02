@@ -1,0 +1,20 @@
+ 
+****************************************
+Report : constraint
+Design : fma16
+Version: W-2024.09-SP4-1
+Date   : Mon Dec  1 18:03:47 2025
+****************************************
+
+
+
+    Constraint                                       Cost
+    -----------------------------------------------------
+    multiport_net                                0.000000 (MET)
+    max_transition                               0.000000 (MET)
+    max_capacitance                              0.000000 (MET)
+    max_leakage_power                            2941.006592
+                                                          (VIOLATED)
+
+
+1

@@ -1,0 +1,104 @@
+# PTPX name mapping file
+# created using Synopsys Power Compiler W-2024.09-SP4-1 */
+# design fma16
+# 
+set_rtl_to_gate_name -rtl {x[15]} -gate {x[15]}
+set_rtl_to_gate_name -rtl {x[14]} -gate {x[14]}
+set_rtl_to_gate_name -rtl {x[13]} -gate {x[13]}
+set_rtl_to_gate_name -rtl {x[12]} -gate {x[12]}
+set_rtl_to_gate_name -rtl {x[11]} -gate {x[11]}
+set_rtl_to_gate_name -rtl {x[10]} -gate {x[10]}
+set_rtl_to_gate_name -rtl {x[9]} -gate {x[9]}
+set_rtl_to_gate_name -rtl {x[8]} -gate {x[8]}
+set_rtl_to_gate_name -rtl {x[7]} -gate {x[7]}
+set_rtl_to_gate_name -rtl {x[6]} -gate {x[6]}
+set_rtl_to_gate_name -rtl {x[5]} -gate {x[5]}
+set_rtl_to_gate_name -rtl {x[4]} -gate {x[4]}
+set_rtl_to_gate_name -rtl {x[3]} -gate {x[3]}
+set_rtl_to_gate_name -rtl {x[2]} -gate {x[2]}
+set_rtl_to_gate_name -rtl {x[1]} -gate {x[1]}
+set_rtl_to_gate_name -rtl {x[0]} -gate {x[0]}
+set_rtl_to_gate_name -rtl {y[15]} -gate {y[15]}
+set_rtl_to_gate_name -rtl {y[14]} -gate {y[14]}
+set_rtl_to_gate_name -rtl {y[13]} -gate {y[13]}
+set_rtl_to_gate_name -rtl {y[12]} -gate {y[12]}
+set_rtl_to_gate_name -rtl {y[11]} -gate {y[11]}
+set_rtl_to_gate_name -rtl {y[10]} -gate {y[10]}
+set_rtl_to_gate_name -rtl {y[9]} -gate {y[9]}
+set_rtl_to_gate_name -rtl {y[8]} -gate {y[8]}
+set_rtl_to_gate_name -rtl {y[7]} -gate {y[7]}
+set_rtl_to_gate_name -rtl {y[6]} -gate {y[6]}
+set_rtl_to_gate_name -rtl {y[5]} -gate {y[5]}
+set_rtl_to_gate_name -rtl {y[4]} -gate {y[4]}
+set_rtl_to_gate_name -rtl {y[3]} -gate {y[3]}
+set_rtl_to_gate_name -rtl {y[2]} -gate {y[2]}
+set_rtl_to_gate_name -rtl {y[1]} -gate {y[1]}
+set_rtl_to_gate_name -rtl {y[0]} -gate {y[0]}
+set_rtl_to_gate_name -rtl {z[15]} -gate {z[15]}
+set_rtl_to_gate_name -rtl {z[14]} -gate {z[14]}
+set_rtl_to_gate_name -rtl {z[13]} -gate {z[13]}
+set_rtl_to_gate_name -rtl {z[12]} -gate {z[12]}
+set_rtl_to_gate_name -rtl {z[11]} -gate {z[11]}
+set_rtl_to_gate_name -rtl {z[10]} -gate {z[10]}
+set_rtl_to_gate_name -rtl {z[9]} -gate {z[9]}
+set_rtl_to_gate_name -rtl {z[8]} -gate {z[8]}
+set_rtl_to_gate_name -rtl {z[7]} -gate {z[7]}
+set_rtl_to_gate_name -rtl {z[6]} -gate {z[6]}
+set_rtl_to_gate_name -rtl {z[5]} -gate {z[5]}
+set_rtl_to_gate_name -rtl {z[4]} -gate {z[4]}
+set_rtl_to_gate_name -rtl {z[3]} -gate {z[3]}
+set_rtl_to_gate_name -rtl {z[2]} -gate {z[2]}
+set_rtl_to_gate_name -rtl {z[1]} -gate {z[1]}
+set_rtl_to_gate_name -rtl {z[0]} -gate {z[0]}
+set_rtl_to_gate_name -rtl {mul} -gate {mul}
+set_rtl_to_gate_name -rtl {add} -gate {add}
+set_rtl_to_gate_name -rtl {negr} -gate {negr}
+set_rtl_to_gate_name -rtl {negz} -gate {negz}
+set_rtl_to_gate_name -rtl {roundmode[1]} -gate {roundmode[1]}
+set_rtl_to_gate_name -rtl {roundmode[0]} -gate {roundmode[0]}
+set_rtl_to_gate_name -rtl {result[15]} -gate {result[15]}
+set_rtl_to_gate_name -rtl {result[14]} -gate {result[14]}
+set_rtl_to_gate_name -rtl {result[13]} -gate {result[13]}
+set_rtl_to_gate_name -rtl {result[12]} -gate {result[12]}
+set_rtl_to_gate_name -rtl {result[11]} -gate {result[11]}
+set_rtl_to_gate_name -rtl {result[10]} -gate {result[10]}
+set_rtl_to_gate_name -rtl {result[9]} -gate {result[9]}
+set_rtl_to_gate_name -rtl {result[8]} -gate {result[8]}
+set_rtl_to_gate_name -rtl {result[7]} -gate {result[7]}
+set_rtl_to_gate_name -rtl {result[6]} -gate {result[6]}
+set_rtl_to_gate_name -rtl {result[5]} -gate {result[5]}
+set_rtl_to_gate_name -rtl {result[4]} -gate {result[4]}
+set_rtl_to_gate_name -rtl {result[3]} -gate {result[3]}
+set_rtl_to_gate_name -rtl {result[2]} -gate {result[2]}
+set_rtl_to_gate_name -rtl {result[1]} -gate {result[1]}
+set_rtl_to_gate_name -rtl {result[0]} -gate {result[0]}
+set_rtl_to_gate_name -rtl {flags[3]} -gate {flags[3]}
+set_rtl_to_gate_name -rtl {flags[2]} -gate {flags[2]}
+set_rtl_to_gate_name -rtl {flags[1]} -gate {flags[1]}
+set_rtl_to_gate_name -rtl {flags[0]} -gate {flags[0]}
+set_rtl_to_gate_name -rtl {clk} -gate {clk}
+set_rtl_to_gate_name -rtl {NormCnt[0]} -gate [get_cell {NormCnt_reg[0]}]
+set_rtl_to_gate_name -rtl {NormCnt[1]} -gate [get_cell {NormCnt_reg[1]}]
+set_rtl_to_gate_name -rtl {NormCnt[2]} -gate [get_cell {NormCnt_reg[2]}]
+set_rtl_to_gate_name -rtl {NormCnt[3]} -gate [get_cell {NormCnt_reg[3]}]
+set_rtl_to_gate_name -rtl {NormCnt[4]} -gate [get_cell {NormCnt_reg[4]}]
+set_rtl_to_gate_name -rtl {NormCnt[5]} -gate [get_cell {NormCnt_reg[5]}]
+set_rtl_to_gate_name -rtl {flags[3]} -gate [get_cell {flags_reg[3]}]
+set_rtl_to_gate_name -rtl {flags[0]} -gate [get_cell {flags_reg[0]}]
+set_rtl_to_gate_name -rtl {result[11]} -gate [get_cell {result_reg[11]}]
+set_rtl_to_gate_name -rtl {result[12]} -gate [get_cell {result_reg[12]}]
+set_rtl_to_gate_name -rtl {result[13]} -gate [get_cell {result_reg[13]}]
+set_rtl_to_gate_name -rtl {result[14]} -gate [get_cell {result_reg[14]}]
+set_rtl_to_gate_name -rtl {flags[2]} -gate [get_cell {flags_reg[2]}]
+set_rtl_to_gate_name -rtl {result[0]} -gate [get_cell {result_reg[0]}]
+set_rtl_to_gate_name -rtl {result[1]} -gate [get_cell {result_reg[1]}]
+set_rtl_to_gate_name -rtl {result[2]} -gate [get_cell {result_reg[2]}]
+set_rtl_to_gate_name -rtl {result[3]} -gate [get_cell {result_reg[3]}]
+set_rtl_to_gate_name -rtl {result[4]} -gate [get_cell {result_reg[4]}]
+set_rtl_to_gate_name -rtl {result[5]} -gate [get_cell {result_reg[5]}]
+set_rtl_to_gate_name -rtl {result[6]} -gate [get_cell {result_reg[6]}]
+set_rtl_to_gate_name -rtl {result[7]} -gate [get_cell {result_reg[7]}]
+set_rtl_to_gate_name -rtl {result[8]} -gate [get_cell {result_reg[8]}]
+set_rtl_to_gate_name -rtl {result[9]} -gate [get_cell {result_reg[9]}]
+set_rtl_to_gate_name -rtl {result[10]} -gate [get_cell {result_reg[10]}]
+set_rtl_to_gate_name -rtl {result[15]} -gate [get_cell {result_reg[15]}]
