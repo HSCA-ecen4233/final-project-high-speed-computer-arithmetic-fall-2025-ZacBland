@@ -12,7 +12,7 @@ if { $saifpower == 1 } {
 }
 
 # Verilog files
-set my_verilog_files [glob hdl/*v]
+set my_verilog_files [glob ../rtl/*v]
 
 # VHDL files
 # set my_vhdl_files [list top.vhd]
@@ -59,7 +59,7 @@ report_saif -hierarchy -rtl_saif
 # Set Frequency in [MHz] or [ps]
 set my_clock_pin clk
 set my_uncertainty 0.1
-set my_clk_freq_MHz 500
+set my_clk_freq_MHz 25
 set my_period [expr 1000.0 / $my_clk_freq_MHz]
 
 # Create clock object 

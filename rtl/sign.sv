@@ -11,9 +11,9 @@ module fmasign(OpCtrl, Xs, Ys, Zs, Ps, As, InvA);
     assign add = OpCtrl[0];
 
     always_comb begin
-        assign Ps = Xs ^ Ys;
-        assign As = Zs ^ ~add;
-        assign InvA = Ps ^ As;
+        Ps = Xs ^ Ys;
+        As = Zs ^ ~add;
+        InvA = Ps ^ As;
 
         //$display("Sign: Ps=%b As=%b InvA=%b", Ps, As, InvA);
     end
