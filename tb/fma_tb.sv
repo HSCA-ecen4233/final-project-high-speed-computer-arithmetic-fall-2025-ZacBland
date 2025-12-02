@@ -37,7 +37,7 @@ module stimulus;
         .clk(clk)
     );
 
-    string testvector_file = "tb/tests/my_tests_rm.tv";
+    string testvector_file = "tb/tests/fma_special_rz.tv";
     initial begin
         vectornum = 0; errors = 0;
         $readmemh(testvector_file, testvectors);

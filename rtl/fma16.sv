@@ -155,8 +155,8 @@ module fma16 (x, y, z, mul, add, negr, negz,
             .overflow(overflow)
       );
 
-      always @(posedge clk) begin
-            flags = {4{1'b0}}; // Clear all flags initially
+      always_comb begin
+            flags = 4'b0;
             if ((XInf & YZero) | (YInf & XZero)) begin
                   result = 16'h7e00;
                   flags[3] = 1; // Invalid operation
@@ -176,11 +176,7 @@ module fma16 (x, y, z, mul, add, negr, negz,
                   end
             end else begin
                   result = result_normalized;
-                  if (^inexact === 1'bx) begin
-                        flags[0] = 1'b0;
-                  end else begin
-                        flags[0] = inexact;
-                  end
+                  flags[0] = inexact; // Inexact flag
                   if (Se[5] | (&result[14:10]) | overflow) begin
                         flags[2] = 1; //Overflow
                         flags[0] = 1; // Inexact
@@ -202,11 +198,7 @@ module fma16 (x, y, z, mul, add, negr, negz,
                               result = {Ps, 5'b11110, 10'b1111111111}; // Max normal
                         end
                   end else if (~|result[14:0]) begin
-                        if (roundmode == 2'b10) begin
-                              result = {Ps | Zs, 15'b0}; // -0
-                        end else begin 
-                              result = {As & Ps, result[14:0]}; // Force to even
-                        end
+                        result = {As & Ps, result[14:0]}; // Force to even
                   end
             end
             
