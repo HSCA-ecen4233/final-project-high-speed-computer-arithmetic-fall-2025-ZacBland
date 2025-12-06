@@ -36,11 +36,19 @@ module stimulus;
         .flags(flags),
         .clk(clk)
     );
-
-    string testvector_file = "tb/tests/fma_special_rz.tv";
+    string test_folder = "tb/tests/";
+    string testvector_file;
     initial begin
+        $display("\n##############################");
+        if ($value$plusargs("TEST_FILE=%s", testvector_file)) begin
+            $display("Testing file: %s", testvector_file);
+        end else begin
+            testvector_file = "fma_2.tv";
+            $display("No test vector file specified, defaulting to %s", testvector_file);
+        end
+        $display("##############################");
         vectornum = 0; errors = 0;
-        $readmemh(testvector_file, testvectors);
+        $readmemh({test_folder, testvector_file}, testvectors);
     end
 
     logic [75:0] value;

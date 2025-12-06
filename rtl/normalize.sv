@@ -166,9 +166,6 @@ module fmanorm(Se, Sm, Ss, ASticky, roundmode, result, inexact, overflow);
             mant = frac & 'h3FF;
 
             result = {Ss, e[4:0], mant[9:0]};
-        end else begin
-            $display("UNSUPPORTED ROUNDING MODE = %b", internal_roundmode);
-            result = 16'h0000; // Unsupported rounding mode
         end
         end
     end
